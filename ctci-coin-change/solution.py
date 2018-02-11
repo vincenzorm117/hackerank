@@ -5,9 +5,8 @@ def make_change(coins, n):
     memo = [0] * (n+1)
     memo[0] = 1
     for coin in coins:
-        for i in range(1, n+1):
-            if i >= coin:
-                memo[i] += memo[i - coin]
+        for i in range(coin, n+1):
+            memo[i] += memo[i - coin]
     return memo[n]
 
     
