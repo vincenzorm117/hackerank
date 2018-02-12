@@ -1,5 +1,27 @@
-#!/usr/local/bin/python3
 
+
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+
+class Trie:
+	def __init__(self):
+		self.root = {}
+	def find(self, items):
+		curr = self.root
+		for item in items:
+			if item in curr:
+				curr = curr[item]
+			else:
+				return None
+		return curr
+	def add(self, items):
+		curr = self.root
+		for item in items:
+			if item not in curr:
+				curr[item] = {}
+			curr = curr[item]
 
 ####################################################################################
 ####################################################################################
@@ -285,6 +307,54 @@ class Queue:
 
 	def peek(self):
 		return self.head.data if self.count == 0 else None
+
+
+
+####################################################################################
+####################################################################################
+####################################################################################
+####################################################################################
+
+
+class Heap:
+	def __init__(self):
+		self.array = []
+	def add(self, value):
+		self.array.append(value)
+		currNode = len(self.array)-1
+		while 0 < currNode:
+			parentNode = int((currNode - 1)/2)
+			if self.array[parentNode] <= self.array[currNode]:
+				break
+			temp = self.array[currNode]
+			self.array[currNode] = self.array[parentNode]
+			self.array[parentNode] = temp
+			currNode = parentNode
+	def empty(self):
+		return 0 >= len(self.array)
+	def peek(self):
+		if 0 < len(self.array):
+			return self.array[0]
+		return None
+
+	def poll(self):
+		if not (1 < len(self.array)):
+			return self.array.pop()
+		top = self.array[0]
+		self.array[0] = self.array.pop()
+		index = 0
+		while 2 * index + 1 < len(self.array):
+			leftChildIndex = 2*index+1
+			if leftChildIndex+1 < len(self.array) and self.array[leftChildIndex+1] < self.array[leftChildIndex]:
+				leftChildIndex += 1 
+			if self.array[index] < self.array[leftChildIndex]:
+				break
+			else:
+				self.array[index], self.array[leftChildIndex] = self.array[leftChildIndex], self.array[index]
+			index = leftChildIndex
+		return top
+	def __repr__(self):
+		return str(self.array)
 
 
 ####################################################################################
@@ -621,11 +691,11 @@ def top_sort(G):
 def bubbleSort(a):
 	if a is not List:
 		return None
-    L = len(a)
-    for i in range(L):
-        for j in range(L-1):
-            if a[j] > a[j+1]:
-                a[j], a[j+1] = a[j+1], a[j]
+	L = len(a)
+	for i in range(L):
+		for j in range(L-1):
+			if a[j] > a[j+1]:
+				a[j], a[j+1] = a[j+1], a[j]
 	return a
 
 
